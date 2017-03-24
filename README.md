@@ -79,31 +79,31 @@ ___
 
 ## User Interface
 
-### Admin login portal
+### 1. Admin login portal
 
 **URL:** */vote/admin*
 
 ![Admin](https://github.com/roopansh/IITG-Election-Portal/blob/master/Screenshots/1.png?raw=true)
 
-### Key generator
+### 2. Key generator
 
 **URL:** */vote/key*
 
 ![key](https://github.com/roopansh/IITG-Election-Portal/blob/master/Screenshots/4.png?raw=true)
 
 
-### Voter login portal
+### 3. Voter login portal
 
 **URL:** */vote/voter*
 
 ![Voter](https://github.com/roopansh/IITG-Election-Portal/blob/master/Screenshots/3.png?raw=true)
 
-### Voting pages
+### 4. Voting pages
 
 ![Voting](https://github.com/roopansh/IITG-Election-Portal/blob/master/Screenshots/6.png?raw=true)
 ![Voting](https://github.com/roopansh/IITG-Election-Portal/blob/master/Screenshots/9.png?raw=true)
 
-###Time up notification
+### 5. Time up notification
 
 **Automatic logout after timeout**
 
@@ -114,8 +114,7 @@ ____________________
 
 ### About the project author
 
-#### Roopansh Bansal
-
+#### Roopansh Bansal  
 B.Tech undergraduate  
 Computer Science & Engineering  
 Indian Institute of Technology  
