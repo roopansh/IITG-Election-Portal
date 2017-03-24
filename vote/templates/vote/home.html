@@ -1,0 +1,83 @@
+{% extends 'vote/base.html' %}
+    {% load staticfiles %}
+
+{% block body %}
+
+<div class="container">
+    <div class="row card-panel grey lighten-5 z-depth-1 hoverable">
+        <div class="col-sm-12 col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <blockquote><h4>Important Instructions</h4></blockquote>
+                </div>
+                <div class="panel-body">
+                    <div>
+                        <ol>
+                            <li>You can only give vote <strong>once</strong>, so be careful.</li>
+                            <li>The session would expire in <strong>5 minutes</strong> after the login.</li>
+                            <li><b>DONOT</b> press <b>BACK</b> button or <b>REFRESH</b> the page. You may be exempt from voting for further posts if system detects the voter tampering with the website. </li>
+                            <li>For executive posts, you can vote for either of the candidates or None
+                                of the above(NOTA). If more than 50% of voters choose not to vote for any
+                                candidate then elections for those posts will be conducted again.</li>
+                            <li>For senate posts,
+                                <ol style="list-style-type: lower-roman;">
+                                    <li>If the voter is an UG student, he/she needs to select at most 7
+                                members from the list of candidates contesting for UG Senators.
+                                If the voter is a PG student, he/she needs to select at most 7 members
+                                from the list of candidates  contesting for PG Senators.
+                                </li>
+                                <li> If the voter is a Girl(either PG or UG), she needs to select at
+                                most 3 members from the list of candidates contesting for Girl
+                                Senators other than UG/PG Senators.</li>
+                                <li>However the voter can have the option not to choose any of them. If more than 50% of voters choose not to vote for any candidate contesting for the post of senator then elections for those posts will be conducted again.</li>
+                                </ol>
+                            </li>
+
+                        </ol>
+                    </div>
+                    <div>
+                    {% if not user.is_authenticated %}
+                        <form class="form-horizontal" role="form" action="{% url 'vote:voter' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                           
+                        <div class="input-field col s6">
+                            <input type="text" name="webmail" class="validate">
+                            <label class="" for="webmail">Webmail</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <input type="password" name="password" class="validate">
+                            <label class="" for="password">Password</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <div class="">
+                                <button type="submit" class="btn waves-effect waves-light" name="action">Submit
+                                <i class="material-icons right">send</i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    {% elif Voter_continue %}
+                    <form class="form-horizontal" role="form" action="{% url 'vote:voter' %}" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <div class="col-sm-offset-5 col-sm-12">
+                                <button type="submit" class="btn waves-effect waves-purple disabled">Continue Voting
+                                <i class="material-icons right">send</i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    {% else %}
+                        <h3>YOU NEED TO LOGOUT FIRST!!</h3>
+                    {% endif %}
+                    </div>
+                </div>
+                    <div class="" style="color: #d50000; font-size: 200%">                    
+                        {{ error_message }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

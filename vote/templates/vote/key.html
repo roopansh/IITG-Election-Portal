@@ -1,0 +1,42 @@
+{% extends 'vote/base.html' %}
+
+{% block title %}Add new Voter{% endblock %}
+
+{% block body %}
+
+ <div class="container">
+     <div class="row card-panel grey lighten-5 z-depth-1 hoverable">
+        <div class="col-sm-12 col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <blockquote><h3>Admin Portal - Key Generator</h3></blockquote>
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal" role="form" action="{% url 'vote:key' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="input-field col s6 offset-s3">
+                        	<input type="text" name="webmail"> 
+                            <label class="" for="input_field">Webmail</label>
+                        </div>
+                        <div class="input-field col s6 offset-s3 center">
+                            <button type="submit" class="btn waves-effect waves-light">Submit</button>
+                        </div>
+                    </form>
+                    <button onclick="clearText()" class="btn waves-effect waves-light">Clear</button>
+                    <script type="text/javascript">
+                        function clearText(){
+                            document.getElementById('aneesh').innerHTML = "";
+                        }
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="col s6 offset-s3" id="aneesh" style="color: #d50000; font-size: 200%">
+        {{ error_message }}
+    </div>
+</div>
+
+{% endblock %}

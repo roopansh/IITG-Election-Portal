@@ -1,0 +1,61 @@
+<!-- Senate voting portal -->
+{% extends 'vote/base.html' %}
+{% load static %}
+{% block body %}
+
+<form action="{% url 'vote:voter_senate' post %}" method="post">
+{% csrf_token %}
+<div class="container" style="display: inline;">
+    <div class="center" style="z-index: 10; position: absolute; font-size: 300%;align-content: center;margin-left: 15%;"><blockquote>{{heading}}</blockquote></div>
+
+    {% if session_timer %}
+    <div class="row">
+      <div class="col s12 m2 right">
+        <div class="card-panel light-blue darken-4" style="margin-right: 5%" >
+          <span class="white-text">
+            <h3><div id="clockdiv">{{session_timer}}</div></h3> seconds remaining.
+          </span>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+</div>
+<h5 style="color: red;margin-left: 15%;">{{error_message}}</h5>
+<div class="container">
+    <table class="responsive-table highlight bordered" cellspacing="0" width="70%">
+        <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Agenda</th>
+            <th>Vote</th>
+        </tr>
+        
+    {% for candidate in ContestantsList %}
+        <tr >
+            <td style="width: 100px;"><label for="{{candidate.user.username}}"><img src="{% static candidate.pic %}"  width="200px"></label></td>
+            <td style="width: 100px;"><label for="{{candidate.user.username}}" class="blue-grey-text text-darken-4" style="font-size: 120%;">{{candidate.user.first_name}}</label></td>
+            <td><label for="{{candidate.user.username}}" class="blue-grey-text text-darken-4" style="font-size: 150%;">
+            	<ul class="browser-default">
+            		<li>{{candidate.agenda1}}</li>
+            		<li>{{candidate.agenda2}}</li>
+            		<li>{{candidate.agenda3}}</li>
+            		<li>{{candidate.agenda4}}</li>
+            	</ul></label>
+            </td>
+            <td><input type="checkbox" name="{{post}}" id="{{candidate.user.username}}" value="{{candidate.user.username}}" class="filled-in" /><label for="{{candidate.user.username}}"></label></td>
+            
+        </tr>
+    {% endfor %}
+
+    </table>
+</div>
+<div class="input-field col s6 center">
+    <div class="">
+        <button type="submit" class="btn waves-effect waves-light" name="action">Vote
+        <i class="material-icons right">send</i>
+        </button>
+    </div>
+</div>
+</form>
+
+{% endblock %}

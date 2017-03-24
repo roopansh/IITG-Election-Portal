@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <!-- <link href="{% static 'icon.css' %}" rel="stylesheet"> -->
+    <style type="text/css">
+        /* fallback */
+        @font-face {
+          font-family: 'Material Icons';
+          font-style: normal;
+          font-weight: 400;
+          src: local('Material Icons'), local('MaterialIcons-Regular'), url(http://fonts.gstatic.com/s/materialicons/v21/2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2) format('woff2');
+        }
+
+        .material-icons {
+          font-family: 'Material Icons';
+          font-weight: normal;
+          font-style: normal;
+          font-size: 24px;
+          line-height: 1;
+          letter-spacing: normal;
+          text-transform: none;
+          display: inline-block;
+          white-space: nowrap;
+          word-wrap: normal;
+          direction: ltr;
+          -webkit-font-feature-settings: 'liga';
+          -webkit-font-smoothing: antialiased;
+        }
+    </style>
+    <!-- Google Material Icons and Fonts -->
+    <!-- <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
+    <!-- Compiled and minified CSS Materialize -->
+    <link rel="stylesheet" href="{% static 'vote/css/materialize.css' %}" media="screen,projection">
+    <!-- customized CSS -->
+    <style type="text/css">
+        body {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1 0 auto;
+            margin-bottom: 100px
+        }
+        .card-panel{
+            margin-top: 70px;
+        }
+    </style>
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+    <title> {% block title %}{% endblock %}</title>
+</head>
+<body>
+
+<header>
+    <div class="nav-extended"> 
+        <div class="navbar-fixed">
+            <nav>
+                <!-- Logo -->
+                <div class="nav-wrapper">
+                    <a class="brand-logo" href="{% url 'vote:index' %}" ">&nbsp;Indian Institute of Technology, Guwahati - Gymkhana Elections</a>
+
+                <!-- Item -->
+                <ul class="right hide-on-med-and-down">
+                    {% if user.is_authenticated %}
+                        <li>
+                            <a href="{% url 'vote:logout' %}"><i class="material-icons left">power_settings_new</i>Log Out</a>
+                        </li>
+                    {% else %}
+                        <li class="{% block login-active %}{% endblock %}">
+                            <a href="{% url 'vote:index' %}"><i class="material-icons left">perm_identity</i>Sign In</a>
+                        </li>
+                    {% endif %}
+                    {% if user.admin %}
+                        <li class="{% block register-active %}{% endblock %}">
+                            <a href="{% url 'vote:key' %}"> <i class="material-icons left">vpn_key</i>Key Gen</a>
+                        </li>
+                    {% endif %}
+                </ul>
+                </div>
+            </nav>
+        </div>
+
+        {% if breadcrumb %}
+        <nav>
+            <div class="nav-content">
+                <div class="col s8 offset-s2">
+                {% if breadcrumb >= 1 %}
+                    <a class="breadcrumb">Senate</a>
+                {% endif %}
+                
+                {% if breadcrumb >= 2 %}
+                    <a class="breadcrumb">Vice President</a>
+                {% endif %}
+                
+                {% if breadcrumb >= 3 %}
+                    <a class="breadcrumb">Technical Board</a>
+                {% endif %}
+                
+                {% if breadcrumb >= 4 %}
+                    <a class="breadcrumb">Cultural Board</a>
+                {% endif %}
+                
+                {% if breadcrumb >= 5 %}
+                    <a class="breadcrumb">Hostel Affairs Board</a>
+                {% endif %}
+                
+                {% if breadcrumb >= 6 %}
+                    <a class="breadcrumb">Welfare Board</a>
+                {% endif %}
+                
+                {% if breadcrumb >= 7 %}
+                    <a class="breadcrumb active">Sports Board</a>
+                {% endif %}
+
+                {% if breadcrumb >= 8 %}
+                    <a class="breadcrumb active">SAIL</a>
+                {% endif %}
+
+                {% if breadcrumb >= 9 %}
+                    <a class="breadcrumb active">CBS</a>
+                {% endif %}
+                </div>
+            </div>
+        </nav>
+        {% endif %}
+    </div>
+</header>
+
+<main>
+    {% block body %}
+    {% endblock %}
+        {% if session_timer %}
+        <script src="{% static 'main.js' %}"></script>
+        <script>
+            function getTimeRemaining(endtime){
+                var seconds = endtime;
+                /*var minutes = Math.floor( (endtime/60));*/
+                return {
+                    'total': endtime,
+                    'seconds': seconds
+                    };
+                };
+
+            window.onload = function (){
+                var clock = document.getElementById("clockdiv");
+                var timeinterval = setInterval(function(){
+                    var t = getTimeRemaining(clock.innerHTML);
+                    clock.innerHTML = t.seconds - 1;
+                    if(t.total<=1){
+                    alert("Your time is up!");
+                    clearInterval(timeinterval);
+                    window.location = "/vote/logout/";
+            }},1000);};
+        </script>
+    {% endif %}
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="{% static 'vote/jquery-2.1.1.min.js' %}"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="{% static 'vote/js/materialize.js' %}"></script>
+
+</main>
+
+<footer  class="page-footer">
+    <div class="footer-copyright">
+        <div class="container">
+            © SWC IIT, Guwahati
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

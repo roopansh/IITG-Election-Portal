@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load staticfiles %}
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Satisfy" rel="stylesheet">
+    <!-- my CSS -->
+    <link rel="stylesheet" href="{% static 'vote/main.css' %}">
+    
+    <title> {% block title %}{% endblock %}</title>
+</head>
+<body><!--Indian Institute of Technology,Guwahati - Gymkhana Elections-->   
+
+    <nav class="navbar navbar-inverse navbar-static-top">
+        <div class="container-fluid">
+            <!-- Logo -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle"  data-toggle="collapse" data-target="#TopNavBar">
+                    <!-- <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>-->
+                    <span class="glyphicon glyphicon-th-list"></span>
+                </button>
+
+                <a class="navbar-brand" href="{% url 'vote:index' %}">Indian Institute of Technology,Guwahati - Gymkhana Elections</a>
+            </div>
+
+            <!-- Item -->
+            <div class="collapse navbar-collapse" id="TopNavBar">
+                <ul class="nav navbar-nav navbar-right">
+                    {% if user.is_authenticated %}
+                        <li>
+                            <a><span class="glyphicon glyphicon-user"></span>&nbsp;{{ user.username }}</a>
+                        </li>
+                        {% if user.admin %}
+                        <li>
+                            <a href="{% url 'vote:addUser' %}"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Add New Voter</a>
+                        </li>
+                        {% endif %}
+                        <li>
+                            <a href="{% url 'vote:logout' %}"><span class="glyphicon glyphicon-off"></span>&nbsp;Log Out</a>
+                        </li>
+                    {% else %}
+                        <li class="{% block login-active %}{% endblock %}">
+                            <a href="{% url 'vote:login' %}"><span class="glyphicon glyphicon-log-in"></span>&nbsp;Sign In</a>
+                        </li>
+                        <li class="{% block register-active %}{% endblock %}">
+                            <a href="{% url 'vote:addUser' %}"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;New Voter</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    {% block body %}
+    {% endblock %}
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+</body>
+</html>
